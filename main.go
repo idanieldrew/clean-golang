@@ -1,7 +1,16 @@
 package main
 
+import (
+	"clean-golang/app/infrastructure/logger"
+	"os"
+	"runtime/debug"
+)
+
 func main() {
-	/*logTrashOld, _ := strconv.Atoi(os.Getenv("LOG_THRESHOLD"))
-	offset, _ := strconv.Atoi(os.Getenv("LOG_TIME_ZONE_OFFSET"))
-	timeZone, _ := timetime.FixedZone(os.Getenv("TIME_ZONE"), offset)*/
+	defer func() {
+		if initErr := recover(); initErr != nil {
+			logger.Error(string(debug.Stack()))
+		}
+		os.Exit(1)
+	}()
 }
