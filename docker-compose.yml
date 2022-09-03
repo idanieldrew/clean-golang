@@ -1,0 +1,21 @@
+version: "3.9"
+
+services:
+  go_application:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: clean-go
+    container_name: golang_application
+    volumes:
+      - app_data:/go/clean-golang/app
+    networks:
+      - clean-go-network
+
+networks:
+  clean-go-network:
+    driver: bridge
+
+volumes:
+  app_data:
+    driver: local
