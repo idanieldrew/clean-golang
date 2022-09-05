@@ -1,28 +1,42 @@
 package mysql
 
 import (
-	"clean-golang/app/interfaces/db"
+	"clean-golang/app/infrastructure/database/factories"
 	"database/sql"
 	"fmt"
 	_ "github.com/go-sql-driver/mysql"
+	"log"
+	"os"
 )
 
-type Connection struct {
-	user, psd, host, port, db string
-}
-
-func NewConnection(user, psd, host, port, db string) db.Connection {
-	return &Connection{
-		user: user,
-		psd:  psd,
-		host: host,
-		port: port,
-		db:   db,
+type (
+	DbMysql struct {
+		factories.Database
 	}
+)
+
+func (m *DbMysql) Make() (interface{}, error) {
+	connect, err := m.Connect()
+	if err != nil {
+		log.Fatalln(err)
+		return nil, err
+	}
+
+	return connect, nil
 }
 
-func (c *Connection) Connect() (*sql.DB, error) {
-	dataSourceName := fmt.Sprintf("%s:%s@tcp(%s:%s)/%s?parseTime=true", c.user, c.psd, c.host, c.port, c.db)
+func NewMysql() factories.IDatabase {
+	return &DbMysql{factories.Database{
+		User: os.Getenv("DB_USERNAME"),
+		Psd:  os.Getenv("DB_PASSWORD"),
+		Host: os.Getenv("DB_HOST"),
+		Port: os.Getenv("DB_PORT"),
+		Db:   os.Getenv("DB_DATABASE"),
+	}}
+}
+
+func (m *DbMysql) Connect() (*sql.DB, error) {
+	dataSourceName := fmt.Sprintf("%s:%s@tcp(%s:%s)/%s?parseTime=true", m.User, m.Psd, m.Host, m.Port, m.Db)
 	conn, err := sql.Open("mysql", dataSourceName)
 	if err != nil {
 		return nil, err

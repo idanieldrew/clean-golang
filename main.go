@@ -22,15 +22,12 @@ func init() {
 		log.Fatal("Error loading .env file")
 	}
 
-	mysql, err := fecades.DbFacade(os.Getenv("DB_CONNECTION"))
-	if err != nil {
+	// Connect to db
+	dbErr := fecades.NewDb(os.Getenv("DB_CONNECTION"))
+	if dbErr != nil {
+		logger.Error(dbErr.Error())
 		return
 	}
-
-	if err != nil {
-		logger.Error(err.Error())
-	}
-	_ = mysql
 }
 
 func main() {
