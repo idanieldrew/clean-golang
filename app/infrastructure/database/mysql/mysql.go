@@ -5,7 +5,6 @@ import (
 	"database/sql"
 	"fmt"
 	_ "github.com/go-sql-driver/mysql"
-	"log"
 	"os"
 )
 
@@ -15,16 +14,6 @@ type (
 	}
 )
 
-func (m *DbMysql) Make() (interface{}, error) {
-	connect, err := m.Connect()
-	if err != nil {
-		log.Fatalln(err)
-		return nil, err
-	}
-
-	return connect, nil
-}
-
 func NewMysql() factories.IDatabase {
 	return &DbMysql{factories.Database{
 		User: os.Getenv("DB_USERNAME"),
@@ -33,6 +22,15 @@ func NewMysql() factories.IDatabase {
 		Port: os.Getenv("DB_PORT"),
 		Db:   os.Getenv("DB_DATABASE"),
 	}}
+}
+
+func (m *DbMysql) Make() (interface{}, error) {
+	connect, err := m.Connect()
+	if err != nil {
+		return nil, err
+	}
+
+	return connect, nil
 }
 
 func (m *DbMysql) Connect() (*sql.DB, error) {

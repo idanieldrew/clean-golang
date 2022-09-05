@@ -2,15 +2,24 @@ package fecades
 
 import (
 	"clean-golang/app/infrastructure/database/mysql"
+	"clean-golang/app/infrastructure/database/pgsql"
 )
 
 func NewDb(s string) error {
-	if s == "mysql" {
-		q := mysql.NewMysql()
-		_, err := q.Make()
-		if err != nil {
-			return err
+	switch s {
+	case "mysql":
+		m := mysql.NewMysql()
+		_, mErr := m.Make()
+		if mErr != nil {
+			return mErr
+		}
+	case "pgsql":
+		p := pgsql.NewPgsql()
+		_, pErr := p.Make()
+		if pErr != nil {
+			return pErr
 		}
 	}
+
 	return nil
 }

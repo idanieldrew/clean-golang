@@ -3,6 +3,7 @@ package main
 import (
 	"clean-golang/app/infrastructure/database/fecades"
 	"clean-golang/app/infrastructure/logger"
+	"fmt"
 	"github.com/joho/godotenv"
 	"log"
 	"os"
@@ -31,5 +32,5 @@ func init() {
 }
 
 func main() {
-	log.Fatalln("ok")
+	fmt.Println("ok")
 }
