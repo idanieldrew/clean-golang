@@ -33,7 +33,7 @@ func (m *DbMysql) Make() (interface{}, error) {
 	return connect, nil
 }
 
-func (m *DbMysql) Connect() (*sql.DB, error) {
+func (m *DbMysql) Connect() (interface{}, error) {
 	dataSourceName := fmt.Sprintf("%s:%s@tcp(%s:%s)/%s?parseTime=true", m.User, m.Psd, m.Host, m.Port, m.Db)
 	conn, err := sql.Open("mysql", dataSourceName)
 	if err != nil {

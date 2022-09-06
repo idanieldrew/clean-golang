@@ -2,9 +2,15 @@ package main
 
 import (
 	"clean-golang/app/cmd"
+	"clean-golang/app/infrastructure/database/fecades"
+	"clean-golang/app/infrastructure/logger"
+	"github.com/joho/godotenv"
+	"log"
+	"os"
+	"runtime/debug"
 )
 
-/*func init() {
+func init() {
 	defer func() {
 		if initErr := recover(); initErr != nil {
 			logger.Error(string(debug.Stack()))
@@ -24,7 +30,6 @@ import (
 		return
 	}
 }
-*/
 
 func main() {
 	cmd.Run()

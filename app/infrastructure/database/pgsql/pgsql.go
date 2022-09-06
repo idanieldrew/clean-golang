@@ -2,7 +2,6 @@ package pgsql
 
 import (
 	"clean-golang/app/infrastructure/database/factories"
-	"database/sql"
 	"os"
 )
 
@@ -26,6 +25,6 @@ func (p *Pgsql) Make() (interface{}, error) {
 	return nil, nil
 }
 
-func (p *Pgsql) Connect() (*sql.DB, error) {
+func (p *Pgsql) Connect() (interface{}, error) {
 	return nil, nil
 }
