@@ -12,6 +12,9 @@ type (
 	DbMysql struct {
 		factories.Database
 	}
+	Mysql struct {
+		Db *sql.DB
+	}
 )
 
 func NewMysql() factories.IDatabase {
@@ -44,5 +47,5 @@ func (m *DbMysql) Connect() (interface{}, error) {
 	if err != nil {
 		return nil, err
 	}
-	return conn, nil
+	return &Mysql{Db: conn}, nil
 }
