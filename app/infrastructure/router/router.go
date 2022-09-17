@@ -2,12 +2,11 @@ package router
 
 import (
 	"clean-golang/app/interfaces/controller"
-	"fmt"
 	"github.com/gorilla/mux"
 )
 
-func Router() {
+func Router() *mux.Router {
 	r := mux.NewRouter()
-	r.HandleFunc("/", controller.Index)
-	fmt.Print("ok")
+	r.HandleFunc("/", controller.Index).Methods("GET")
+	return r
 }

@@ -17,6 +17,10 @@ type (
 	}
 )
 
+var (
+	Db *sql.DB
+)
+
 func NewMysql() factories.IDatabase {
 	return &DbMysql{factories.Database{
 		User: os.Getenv("DB_USERNAME"),
@@ -38,14 +42,15 @@ func (m *DbMysql) Make() (interface{}, error) {
 
 func (m *DbMysql) Connect() (interface{}, error) {
 	dataSourceName := fmt.Sprintf("%s:%s@tcp(%s:%s)/%s?parseTime=true", m.User, m.Psd, m.Host, m.Port, m.Db)
-	conn, err := sql.Open("mysql", dataSourceName)
+	var err error
+	Db, err = sql.Open("mysql", dataSourceName)
 	if err != nil {
 		return nil, err
 	}
 
-	err = conn.Ping()
+	err = Db.Ping()
 	if err != nil {
 		return nil, err
 	}
-	return &Mysql{Db: conn}, nil
+	return &Mysql{Db: Db}, nil
 }

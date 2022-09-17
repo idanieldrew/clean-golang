@@ -15,6 +15,12 @@ func Run() {
 				Usage:   "serve project",
 				Action:  Serve,
 			},
+			{
+				Name:    "migrate",
+				Aliases: []string{"migrate"},
+				Usage:   "migrate db",
+				Action:  Migrate,
+			},
 		},
 	}
 

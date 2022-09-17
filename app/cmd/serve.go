@@ -2,13 +2,14 @@ package cmd
 
 import (
 	"clean-golang/app/infrastructure/router"
-	"fmt"
 	"github.com/urfave/cli/v2"
+	"log"
+	"net/http"
 )
 
 func Serve(cCtx *cli.Context) error {
 	// register routes
-	router.Router()
-	fmt.Println("salam")
+	r := router.Router()
+	log.Fatalln(http.ListenAndServe(":3000", r))
 	return nil
 }
