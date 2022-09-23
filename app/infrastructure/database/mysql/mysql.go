@@ -41,8 +41,9 @@ func (m *DbMysql) Make() (interface{}, error) {
 }
 
 func (m *DbMysql) Connect() (interface{}, error) {
-	dataSourceName := fmt.Sprintf("%s:%s@tcp(%s:%s)/%s?parseTime=true", m.User, m.Psd, m.Host, m.Port, m.Db)
 	var err error
+
+	dataSourceName := fmt.Sprintf("%s:%s@tcp(%s:%s)/%s?parseTime=true", m.User, m.Psd, m.Host, m.Port, m.Db)
 	Db, err = sql.Open("mysql", dataSourceName)
 	if err != nil {
 		return nil, err

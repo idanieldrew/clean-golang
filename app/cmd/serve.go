@@ -10,6 +10,6 @@ import (
 func Serve(cCtx *cli.Context) error {
 	// register routes
 	r := router.Router()
-	log.Fatalln(http.ListenAndServe(":3000", r))
+	log.Fatal(http.ListenAndServe(":3000", r))
 	return nil
 }

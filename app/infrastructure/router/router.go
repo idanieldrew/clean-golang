@@ -7,6 +7,7 @@ import (
 
 func Router() *mux.Router {
 	r := mux.NewRouter()
+	// user router
 	user.Router(r)
 	return r
 }
