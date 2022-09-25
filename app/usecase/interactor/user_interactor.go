@@ -6,19 +6,23 @@ import (
 	"clean-golang/app/infrastructure/logger"
 	"database/sql"
 	_ "database/sql"
-	"log"
 )
 
+type UserInteract struct {
+	Database interface{}
+}
+
+// close query
 func c(res *sql.Rows) {
 	func(res *sql.Rows) {
 		err := res.Close()
 		if err != nil {
-			logger.Error("c")
+			logger.Error(err.Error())
 		}
 	}(res)
 }
 
-func Index() entities.Users {
+func (u *UserInteract) Index() entities.Users {
 	var user entities.User
 	var users entities.Users
 
@@ -34,7 +38,6 @@ func Index() entities.Users {
 	for res.Next() {
 		err = res.Scan(&user.Name)
 		if err != nil {
-			log.Fatalln(22)
 			logger.Error("problem in scan")
 			return nil
 		}

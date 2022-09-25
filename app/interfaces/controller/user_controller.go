@@ -6,7 +6,15 @@ import (
 	"net/http"
 )
 
-func Index(w http.ResponseWriter, r *http.Request) {
-	u := interactor.Index()
-	fmt.Println(u)
+type UserController struct {
+	Interact interactor.UserInteract
+}
+
+func New() *UserController {
+	return &UserController{Interact: interactor.UserInteract{}}
+}
+
+func (u *UserController) Index(w http.ResponseWriter, r *http.Request) {
+	interact := u.Interact.Index()
+	fmt.Println(interact)
 }

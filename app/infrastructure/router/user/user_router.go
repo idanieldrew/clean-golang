@@ -8,5 +8,7 @@ import (
 func Router(r *mux.Router) {
 	u := r.PathPrefix("/users").Subrouter()
 	// all users
-	u.HandleFunc("", controller.Index).Methods("GET")
+
+	uc := controller.New()
+	u.HandleFunc("", uc.Index).Methods("GET")
 }
