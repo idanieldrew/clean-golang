@@ -30,6 +30,12 @@ func init() {
 		logger.Error(dbErr.Error())
 		return
 	}
+
+	cacheErr := fecades.NewCache(os.Getenv("CACHE_CONNECTION"))
+	if cacheErr != nil {
+		logger.Error(dbErr.Error())
+		return
+	}
 }
 
 func main() {
