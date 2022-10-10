@@ -1,20 +1,26 @@
 package interactor
 
 import (
-	"clean-golang/app/entities"
 	"clean-golang/app/infrastructure/logger"
+	"clean-golang/app/usecase/dto/user"
 	"clean-golang/app/usecase/repository"
+	"net/http"
 )
 
 type UserInteract struct {
 	UserRepository repository.UserRepository
 }
 
-func (u *UserInteract) Index() entities.Users {
+func (u *UserInteract) Index() ([]user.PublicResponse, int) {
+	// Repository
 	users, err := u.UserRepository.All()
 	if err != nil {
 		logger.Error("problem")
-		return nil
+		return nil, http.StatusInternalServerError
 	}
-	return users
+
+	//var r user.UserResponse
+	r := user.UserResponse{}
+	res := r.Public(users)
+	return res, http.StatusOK
 }

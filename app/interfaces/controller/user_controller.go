@@ -1,10 +1,11 @@
 package controller
 
 import (
-	mysql2 "clean-golang/app/infrastructure/database/mysql"
+	myMysql "clean-golang/app/infrastructure/database/mysql"
+	"clean-golang/app/infrastructure/logger"
 	repo "clean-golang/app/interfaces/repository"
 	"clean-golang/app/usecase/interactor"
-	"fmt"
+	"encoding/json"
 	"net/http"
 )
 
@@ -16,13 +17,24 @@ func New() *UserController {
 	return &UserController{
 		Interact: interactor.UserInteract{
 			UserRepository: &repo.UserRepository{
-				Connection: mysql2.Db,
+				Connection: myMysql.Db,
 			},
 		},
 	}
 }
 
 func (u *UserController) Index(w http.ResponseWriter, r *http.Request) {
-	interact := u.Interact.Index()
-	fmt.Println(interact)
+	res, status := u.Interact.Index()
+	u.response(w, status)
+	err := json.NewEncoder(w).Encode(res)
+	if err != nil {
+		logger.Error("problem in response user")
+		return
+	}
+}
+
+func (u *UserController) response(w http.ResponseWriter, s int) {
+	w.Header().Set("Content-Type", "application/json")
+	w.WriteHeader(s)
+	return
 }
