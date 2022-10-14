@@ -2,6 +2,7 @@ package controller
 
 import (
 	myMysql "clean-golang/app/infrastructure/database/mysql"
+	"clean-golang/app/infrastructure/database/redis"
 	"clean-golang/app/infrastructure/logger"
 	repo "clean-golang/app/interfaces/repository"
 	"clean-golang/app/usecase/interactor"
@@ -18,6 +19,7 @@ func New() *UserController {
 		Interact: interactor.UserInteract{
 			UserRepository: &repo.UserRepository{
 				Connection: myMysql.Db,
+				Cache:      redis.Rdb,
 			},
 		},
 	}
@@ -25,6 +27,7 @@ func New() *UserController {
 
 func (u *UserController) Index(w http.ResponseWriter, r *http.Request) {
 	res, status := u.Interact.Index()
+
 	u.response(w, status)
 	err := json.NewEncoder(w).Encode(res)
 	if err != nil {

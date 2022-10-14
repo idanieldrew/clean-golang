@@ -19,7 +19,6 @@ func (u *UserInteract) Index() ([]user.PublicResponse, int) {
 		return nil, http.StatusInternalServerError
 	}
 
-	//var r user.UserResponse
 	r := user.UserResponse{}
 	res := r.Public(users)
 	return res, http.StatusOK

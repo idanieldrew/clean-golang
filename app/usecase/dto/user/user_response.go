@@ -28,10 +28,9 @@ type (
 	}
 )
 
-var public []PublicResponse
-var private []PrivateResponse
-
 func (u *UserResponse) Public(users entities.Users) []PublicResponse {
+	var public []PublicResponse
+
 	for _, user := range users {
 		res := PublicResponse{
 			Name:      user.Name,
@@ -47,6 +46,7 @@ func (u *UserResponse) Public(users entities.Users) []PublicResponse {
 }
 
 func (u *UserResponse) Private(users entities.Users) []PrivateResponse {
+	var private []PrivateResponse
 	for _, u := range users {
 		res := PrivateResponse{
 			Id:        u.Id,

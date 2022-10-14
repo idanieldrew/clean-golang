@@ -41,5 +41,8 @@ func (r *DbRedis) Connect() (interface{}, error) {
 		Password: r.Info.Psd,
 		DB:       0,
 	})
+	/*if err := Rdb.Ping(ctx); err != nil {
+		return nil, err.Err()
+	}*/
 	return Rdb, nil
 }
