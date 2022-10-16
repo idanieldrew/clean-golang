@@ -17,7 +17,7 @@ type UserRepository struct {
 }
 
 const (
-	all = "SELECT id,name,email,phone,created_at,updated_at FROM users"
+	All = "SELECT id,name,email,phone,created_at,updated_at FROM users"
 )
 
 // close query
@@ -36,16 +36,15 @@ func (r *UserRepository) All() (entities.Users, error) {
 	ctx := context.Background()
 
 	res, existErr := r.Cache.Get(ctx, "users").Result()
-	if existErr == redis.Nil {
-		fmt.Println("from db")
 
-		res, err := r.Connection.Query(all)
+	if existErr == redis.Nil {
+		//fmt.Println("from db")
+		res, err := r.Connection.Query(All)
 		if err != nil {
-			textErr := fmt.Sprintf("problem in %s query", all)
+			textErr := fmt.Sprintf("problem in %s query", All)
 			logger.Error(textErr)
 			return nil, err
 		}
-
 		// close query
 		defer c(res)
 
@@ -59,11 +58,10 @@ func (r *UserRepository) All() (entities.Users, error) {
 		}
 		b, _ := json.Marshal(users)
 
-		r.Cache.SetNX(ctx, "users", b, 15*time.Minute).Result()
+		existErr = r.Cache.SetNX(ctx, "users", b, 15*time.Minute).Err()
 		return users, nil
 	} else {
-		fmt.Println("from cache")
-
+		//fmt.Println("from cache")
 		uErr := json.Unmarshal([]byte(res), &users)
 		if uErr != nil {
 			return nil, uErr
