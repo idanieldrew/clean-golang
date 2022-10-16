@@ -7,12 +7,13 @@ import (
 	"clean-golang/app/infrastructure/database/redis"
 	"clean-golang/app/infrastructure/logger"
 	"fmt"
+	"os"
 )
 
 func NewDb(s string) error {
 	switch s {
 	case "mysql":
-		m := mysql.NewMysql()
+		m := mysql.NewMysql(os.Getenv("DB_USERNAME"), os.Getenv("DB_PASSWORD"), os.Getenv("DB_HOST"), os.Getenv("DB_PORT"), os.Getenv("DB_DATABASE"))
 		_, mErr := m.Make()
 		if mErr != nil {
 			return mErr

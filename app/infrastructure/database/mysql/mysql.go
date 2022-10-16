@@ -5,7 +5,6 @@ import (
 	"database/sql"
 	"fmt"
 	_ "github.com/go-sql-driver/mysql"
-	"os"
 )
 
 type (
@@ -21,13 +20,13 @@ var (
 	Db *sql.DB
 )
 
-func NewMysql() factories.IDatabase {
+func NewMysql(User, Psd, Host, Port, Db string) factories.IDatabase {
 	return &DbMysql{factories.Database{
-		User: os.Getenv("DB_USERNAME"),
-		Psd:  os.Getenv("DB_PASSWORD"),
-		Host: os.Getenv("DB_HOST"),
-		Port: os.Getenv("DB_PORT"),
-		Db:   os.Getenv("DB_DATABASE"),
+		User: User,
+		Psd:  Psd,
+		Host: Host,
+		Port: Port,
+		Db:   Db,
 	}}
 }
 
