@@ -1,14 +1,15 @@
 package redis
 
 import (
-	"clean-golang/app/infrastructure/database/factories"
+	db "clean-golang/app/infrastructure/database/contracts/database"
+	factory "clean-golang/app/infrastructure/database/factories"
 	"github.com/go-redis/redis/v8"
 	"os"
 )
 
 type (
 	DbRedis struct {
-		Info factories.Database
+		Info factory.Database
 	}
 
 	Redis struct {
@@ -20,8 +21,8 @@ var (
 	Rdb *redis.Client
 )
 
-func NewRedis() factories.IDatabase {
-	return &DbRedis{Info: factories.Database{
+func NewRedis() db.Connection {
+	return &DbRedis{Info: factory.Database{
 		Psd:  os.Getenv("CACHE_PASSWORD"),
 		Host: os.Getenv("CACHE_HOST"),
 	}}

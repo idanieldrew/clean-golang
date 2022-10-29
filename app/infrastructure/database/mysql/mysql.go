@@ -1,15 +1,17 @@
 package mysql
 
 import (
-	"clean-golang/app/infrastructure/database/factories"
+	db "clean-golang/app/infrastructure/database/contracts/database"
+	factory "clean-golang/app/infrastructure/database/factories"
 	"database/sql"
 	"fmt"
 	_ "github.com/go-sql-driver/mysql"
+	"os"
 )
 
 type (
 	DbMysql struct {
-		factories.Database
+		factory.Database
 	}
 	Mysql struct {
 		Db *sql.DB
@@ -20,13 +22,13 @@ var (
 	Db *sql.DB
 )
 
-func NewMysql(User, Psd, Host, Port, Db string) factories.IDatabase {
-	return &DbMysql{factories.Database{
-		User: User,
-		Psd:  Psd,
-		Host: Host,
-		Port: Port,
-		Db:   Db,
+func NewMysql() db.Connection {
+	return &DbMysql{factory.Database{
+		User: os.Getenv("DB_USERNAME"),
+		Psd:  os.Getenv("DB_PASSWORD"),
+		Host: os.Getenv("DB_HOST"),
+		Port: os.Getenv("DB_PORT"),
+		Db:   os.Getenv("DB_DATABASE"),
 	}}
 }
 

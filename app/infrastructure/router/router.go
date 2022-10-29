@@ -1,7 +1,7 @@
 package router
 
 import (
-	"clean-golang/app/infrastructure/router/user"
+	"clean-golang/app/infrastructure/router/user/v1"
 	"github.com/gorilla/mux"
 )
 

@@ -1,8 +1,11 @@
+/*
+Example of simple factory pattern
+*/
 package main
 
 import (
 	"clean-golang/app/cmd"
-	"clean-golang/app/infrastructure/database/fecades"
+	factory "clean-golang/app/infrastructure/database/factories"
 	"clean-golang/app/infrastructure/logger"
 	"github.com/joho/godotenv"
 	"log"
@@ -25,13 +28,14 @@ func init() {
 	}
 
 	// Connect to db
-	dbErr := fecades.NewDb(os.Getenv("DB_CONNECTION"))
+	dbErr := factory.NewDb(os.Getenv("DB_CONNECTION"))
 	if dbErr != nil {
 		logger.Error(dbErr.Error())
 		return
 	}
 
-	cacheErr := fecades.NewCache(os.Getenv("CACHE_CONNECTION"))
+	// Connect to cache
+	cacheErr := factory.NewCache(os.Getenv("CACHE_CONNECTION"))
 	if cacheErr != nil {
 		logger.Error(dbErr.Error())
 		return

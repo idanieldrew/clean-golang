@@ -24,6 +24,7 @@ require (
 	github.com/go-playground/locales v0.14.0 // indirect
 	github.com/go-playground/universal-translator v0.18.0 // indirect
 	github.com/go-redis/redismock/v8 v8.0.6 // indirect
+	github.com/golang/protobuf v1.5.2 // indirect
 	github.com/golang/snappy v0.0.4 // indirect
 	github.com/hashicorp/errwrap v1.1.0 // indirect
 	github.com/hashicorp/go-multierror v1.1.1 // indirect
@@ -41,8 +42,12 @@ require (
 	go.uber.org/atomic v1.10.0 // indirect
 	go.uber.org/multierr v1.8.0 // indirect
 	golang.org/x/crypto v0.0.0-20220622213112-05595931fe9d // indirect
+	golang.org/x/net v0.1.0 // indirect
 	golang.org/x/sync v0.0.0-20210220032951-036812b2e83c // indirect
-	golang.org/x/sys v0.0.0-20220317061510-51cd9980dadf // indirect
-	golang.org/x/text v0.3.7 // indirect
+	golang.org/x/sys v0.1.0 // indirect
+	golang.org/x/text v0.4.0 // indirect
+	google.golang.org/genproto v0.0.0-20221027153422-115e99e71e1c // indirect
+	google.golang.org/grpc v1.50.1 // indirect
+	google.golang.org/protobuf v1.28.1 // indirect
 	gopkg.in/yaml.v3 v3.0.1 // indirect
 )

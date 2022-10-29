@@ -1,7 +1,8 @@
 package mongo
 
 import (
-	"clean-golang/app/infrastructure/database/factories"
+	db "clean-golang/app/infrastructure/database/contracts/database"
+	factory "clean-golang/app/infrastructure/database/factories"
 	"clean-golang/app/infrastructure/logger"
 	"context"
 	"go.mongodb.org/mongo-driver/mongo"
@@ -13,12 +14,12 @@ import (
 
 type (
 	DbMongo struct {
-		factories.Database
+		factory.Database
 	}
 )
 
-func NewMongo() factories.IDatabase {
-	return &DbMongo{factories.Database{
+func NewMongo() db.Connection {
+	return &DbMongo{factory.Database{
 		User: os.Getenv("DB_USERNAME"),
 		Psd:  os.Getenv("DB_PASSWORD"),
 		Host: os.Getenv("DB_HOST"),
