@@ -1,4 +1,4 @@
-package factories
+package database
 
 import (
 	"clean-golang/app/infrastructure/database/mongo"
@@ -7,12 +7,6 @@ import (
 	"clean-golang/app/infrastructure/database/redis"
 	"clean-golang/app/infrastructure/logger"
 	"fmt"
-)
-
-type (
-	Database struct {
-		User, Psd, Host, Port, Db string
-	}
 )
 
 func NewDb(s string) error {

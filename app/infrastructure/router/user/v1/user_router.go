@@ -6,7 +6,8 @@ import (
 )
 
 func Router(r *mux.Router) {
-	u := r.PathPrefix("/users").Subrouter()
+	m := r.PathPrefix("/api").Subrouter()
+	u := m.PathPrefix("/v1/users").Subrouter()
 
 	uc := controller.New()
 

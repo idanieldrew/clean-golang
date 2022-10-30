@@ -5,7 +5,7 @@ package main
 
 import (
 	"clean-golang/app/cmd"
-	factory "clean-golang/app/infrastructure/database/factories"
+	"clean-golang/app/infrastructure/database"
 	"clean-golang/app/infrastructure/logger"
 	"github.com/joho/godotenv"
 	"log"
@@ -28,14 +28,14 @@ func init() {
 	}
 
 	// Connect to db
-	dbErr := factory.NewDb(os.Getenv("DB_CONNECTION"))
+	dbErr := database.NewDb(os.Getenv("DB_CONNECTION"))
 	if dbErr != nil {
 		logger.Error(dbErr.Error())
 		return
 	}
 
 	// Connect to cache
-	cacheErr := factory.NewCache(os.Getenv("CACHE_CONNECTION"))
+	cacheErr := database.NewCache(os.Getenv("CACHE_CONNECTION"))
 	if cacheErr != nil {
 		logger.Error(dbErr.Error())
 		return

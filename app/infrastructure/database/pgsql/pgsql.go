@@ -1,19 +1,18 @@
 package pgsql
 
 import (
-	db "clean-golang/app/infrastructure/database/contracts/database"
-	factory "clean-golang/app/infrastructure/database/factories"
+	"clean-golang/app/infrastructure/database/contracts/database"
 	"os"
 )
 
 type (
 	Pgsql struct {
-		factory.Database
+		database.Database
 	}
 )
 
-func NewPgsql() db.Connection {
-	return &Pgsql{factory.Database{
+func NewPgsql() database.Connection {
+	return &Pgsql{database.Database{
 		User: os.Getenv("DB_USERNAME"),
 		Psd:  os.Getenv("DB_PASSWORD"),
 		Host: os.Getenv("DB_HOST"),
