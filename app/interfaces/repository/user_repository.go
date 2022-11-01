@@ -38,8 +38,10 @@ func (r *UserRepository) All() (entities.Users, error) {
 	res, existErr := r.Cache.Get(ctx, "users").Result()
 
 	if existErr == redis.Nil {
+		ctx, cancel := context.WithTimeout(ctx, 30*time.Second)
+		defer cancel()
 		//fmt.Println("from db")
-		res, err := r.Connection.Query(All)
+		res, err := r.Connection.QueryContext(ctx, All)
 		if err != nil {
 			textErr := fmt.Sprintf("problem in %s query", All)
 			logger.Error(textErr)
