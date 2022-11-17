@@ -7,8 +7,9 @@ import (
 
 func Router() *mux.Router {
 	r := mux.NewRouter()
+	p := r.PathPrefix("/api").Subrouter()
 
 	// register user route
-	user.Router(r)
+	user.Router(p)
 	return r
 }

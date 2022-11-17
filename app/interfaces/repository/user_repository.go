@@ -3,6 +3,7 @@ package repository
 import (
 	"clean-golang/app/entities"
 	"clean-golang/app/infrastructure/logger"
+	user_request "clean-golang/app/interfaces/request/user"
 	"context"
 	"database/sql"
 	"encoding/json"
@@ -17,7 +18,8 @@ type UserRepository struct {
 }
 
 const (
-	All = "SELECT id,name,email,phone,created_at,updated_at FROM users"
+	all      = "SELECT id,name,email,phone,created_at,updated_at FROM users"
+	register = "INSERT INTO users (name,phone,email,password) VALUES (?,?,?,?)"
 )
 
 // close query
@@ -41,9 +43,9 @@ func (r *UserRepository) All() (entities.Users, error) {
 		ctx, cancel := context.WithTimeout(ctx, 30*time.Second)
 		defer cancel()
 		//fmt.Println("from db")
-		res, err := r.Connection.QueryContext(ctx, All)
+		res, err := r.Connection.QueryContext(ctx, all)
 		if err != nil {
-			textErr := fmt.Sprintf("problem in %s query", All)
+			textErr := fmt.Sprintf("problem in %s query", all)
 			logger.Error(textErr)
 			return nil, err
 		}
@@ -70,4 +72,22 @@ func (r *UserRepository) All() (entities.Users, error) {
 		}
 		return users, nil
 	}
+}
+
+func (r *UserRepository) Register(req *user_request.Request) error {
+	stmt, pErr := r.Connection.Prepare(register)
+	if pErr != nil {
+		logger.Error(pErr.Error())
+		return pErr
+	}
+	defer stmt.Close()
+
+	_, execErr := stmt.Exec(req.Name, req.Phone, req.Email, req.Password)
+	if execErr != nil {
+		logger.Error(execErr.Error())
+
+		return execErr
+	}
+
+	return nil
 }

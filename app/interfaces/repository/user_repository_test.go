@@ -23,7 +23,7 @@ func TestAllUsers(t *testing.T) {
 		AddRow(1, "daniel", "dan@dan.com", "0912538201", time.Time{}, time.Time{}).
 		AddRow(2, "sahar", "sahar@sahar.com", "09125598550", time.Time{}, time.Time{})
 
-	mock.ExpectQuery(All).WillReturnRows(rows)
+	mock.ExpectQuery(all).WillReturnRows(rows)
 	cacheMock.ExpectSet("users", rows, 15*time.Minute)
 
 	r := &UserRepository{
