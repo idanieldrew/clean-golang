@@ -28,7 +28,7 @@ func init() {
 	}
 
 	// Connect to db
-	dbErr := database.NewDb(os.Getenv("DB_CONNECTION"))
+	dbErr := database.NewDb()
 	if dbErr != nil {
 		logger.Error(dbErr.Error())
 		return
