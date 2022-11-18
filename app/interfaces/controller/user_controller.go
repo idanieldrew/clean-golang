@@ -21,13 +21,17 @@ var (
 	rp response.ResponseS
 )
 
+func Repo() *repo.UserRepository {
+	return &repo.UserRepository{
+		Connection: myMysql.Db,
+		Cache:      redis.Rdb,
+	}
+}
+
 func New() *UserController {
 	return &UserController{
 		Interact: interactor.UserInteract{
-			UserRepository: &repo.UserRepository{
-				Connection: myMysql.Db,
-				Cache:      redis.Rdb,
-			},
+			UserRepository: Repo(),
 		},
 	}
 }
@@ -53,7 +57,7 @@ func (u *UserController) Register(w http.ResponseWriter, r *http.Request) {
 		logger.Error(validationErr.Error())
 		rp.Res(w, http.StatusUnprocessableEntity, nil)
 	}
-	status := u.Interact.Register(req)
+	status, msg := u.Interact.Register(req)
 
-	rp.Res(w, status, nil)
+	rp.Res(w, status, msg)
 }

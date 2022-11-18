@@ -8,4 +8,5 @@ import (
 type UserRepository interface {
 	All() (entities.Users, error)
 	Register(req *user_request.Request) error
+	CountMail(mail string) int
 }

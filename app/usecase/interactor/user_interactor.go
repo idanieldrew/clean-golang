@@ -25,11 +25,18 @@ func (u *UserInteract) Index() ([]user.PublicResponse, int) {
 	return res, http.StatusOK
 }
 
-func (u *UserInteract) Register(req *user_request.Request) int {
-	err := u.UserRepository.Register(req)
-	if err != nil {
-		return http.StatusInternalServerError
+func (u *UserInteract) Register(req *user_request.Request) (int, string) {
+	// check validation usecase
+	request := &user.Request{Email: req.Email}
+	if req := request.Validation(u.UserRepository.CountMail(request.Email)); !req {
+		return http.StatusUnprocessableEntity, "incorrect mail"
 	}
 
-	return http.StatusCreated
+	// register user
+	err := u.UserRepository.Register(req)
+	if err != nil {
+		return http.StatusInternalServerError, "server problem"
+	}
+
+	return http.StatusCreated, "success"
 }

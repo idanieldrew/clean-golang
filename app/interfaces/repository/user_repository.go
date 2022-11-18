@@ -18,8 +18,9 @@ type UserRepository struct {
 }
 
 const (
-	all      = "SELECT id,name,email,phone,created_at,updated_at FROM users"
-	register = "INSERT INTO users (name,phone,email,password) VALUES (?,?,?,?)"
+	all         = "SELECT id,name,email,phone,created_at,updated_at FROM users"
+	register    = "INSERT INTO users (name,phone,email,password) VALUES (?,?,?,?)"
+	email_count = "SELECT COUNT(email) AS EmailCount FROM users WHERE email =?"
 )
 
 // close query
@@ -90,4 +91,16 @@ func (r *UserRepository) Register(req *user_request.Request) error {
 	}
 
 	return nil
+}
+
+func (r *UserRepository) CountMail(email string) int {
+	var count int
+	err := r.Connection.QueryRow(email_count, email).Scan(&count)
+	switch {
+	case err != nil:
+		logger.Error(err.Error())
+		return count
+	default:
+		return count
+	}
 }
