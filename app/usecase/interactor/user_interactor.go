@@ -27,9 +27,12 @@ func (u *UserInteract) Index() ([]user.PublicResponse, int) {
 
 func (u *UserInteract) Register(req *user_request.Request) (int, string) {
 	// check validation usecase
-	request := &user.Request{Email: req.Email}
-	if req := request.Validation(u.UserRepository.CountMail(request.Email)); !req {
-		return http.StatusUnprocessableEntity, "incorrect mail"
+	request := &user.Request{
+		Email: req.Email,
+		Phone: req.Phone,
+	}
+	if req := request.Validation(u.UserRepository); !req {
+		return http.StatusUnprocessableEntity, "incorrect mail or phone"
 	}
 
 	// register user
