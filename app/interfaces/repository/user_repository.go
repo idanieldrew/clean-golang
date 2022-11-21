@@ -19,19 +19,17 @@ type UserRepository struct {
 
 const (
 	all         = "SELECT id,name,email,phone,created_at,updated_at FROM users"
-	register    = "INSERT INTO users (name,phone,email,password) VALUES (?,?,?,?)"
+	register    = "INSERT INTO users (name,phone,email,password,created_at,updated_at) VALUES (?,?,?,?,?,?)"
 	email_count = "SELECT COUNT(email) AS EmailCount FROM users WHERE email =?"
 	phone_count = "SELECT COUNT(phone) AS PhoneCount FROM users WHERE phone =?"
 )
 
 // close query
 func c(res *sql.Rows) {
-	func(res *sql.Rows) {
-		err := res.Close()
-		if err != nil {
-			logger.Error(err.Error())
-		}
-	}(res)
+	err := res.Close()
+	if err != nil {
+		logger.Error(err.Error())
+	}
 }
 
 func (r *UserRepository) All() (entities.Users, error) {
@@ -84,7 +82,7 @@ func (r *UserRepository) Register(req *user_request.Request) error {
 	}
 	defer stmt.Close()
 
-	_, execErr := stmt.Exec(req.Name, req.Phone, req.Email, req.Password)
+	_, execErr := stmt.Exec(req.Name, req.Phone, req.Email, req.Password, time.Now(), time.Now())
 	if execErr != nil {
 		logger.Error(execErr.Error())
 
