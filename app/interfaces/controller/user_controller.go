@@ -50,12 +50,15 @@ func (u *UserController) Register(w http.ResponseWriter, r *http.Request) {
 	if err != nil {
 		logger.Error(err.Error())
 		rp.Res(w, http.StatusInternalServerError, nil)
+		return
 	}
 
 	validationErr := req.Validation()
+
 	if validationErr != nil {
 		logger.Error(validationErr.Error())
-		rp.Res(w, http.StatusUnprocessableEntity, nil)
+		rp.Res(w, http.StatusUnprocessableEntity, validationErr.Error())
+		return
 	}
 	status, msg := u.Interact.Register(req)
 

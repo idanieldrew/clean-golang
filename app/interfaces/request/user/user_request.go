@@ -1,31 +1,41 @@
 package user
 
 import (
-	"fmt"
-	"github.com/go-playground/validator/v10"
+	"clean-golang/app/infrastructure/logger"
+	"errors"
+	"regexp"
 )
 
 type Request struct {
-	Name     string `json:"name" validate:"gte=3,lte=12"`
-	Email    string `json:"email" validate:"required,email"`
-	Phone    string `json:"phone" validate:"required,gte=8"`
-	Password string `json:"password" validate:"required"`
+	Name     string `json:"name"`
+	Email    string `json:"email"`
+	Phone    string `json:"phone"`
+	Password string `json:"password"`
 }
 
-var v = validator.New()
-
 func (u *Request) Validation() error {
-	err := v.Struct(u)
-	if err != nil {
-		if _, ok := err.(*validator.InvalidValidationError); ok {
-			return err
-		}
-		for _, v := range err.(validator.ValidationErrors) {
-			fmt.Println(v.Namespace())
-			fmt.Println(v.Tag())
-			fmt.Println()
-		}
-		return err
+	mail := checkMail(u.Email)
+	if !mail {
+		logger.Error("email is incorrect")
+		return errors.New("email is incorrect")
+	}
+	name := checkSize(u.Name, 3, 12)
+	if !name {
+		logger.Error("name is incorrect")
+		return errors.New("name is incorrect")
 	}
 	return nil
+}
+
+func checkMail(e string) bool {
+	emailRegex := regexp.MustCompile(`^[a-z0-9._%+\-]+@[a-z0-9.\-]+\.[a-z]{2,4}$`)
+	return emailRegex.MatchString(e)
+}
+
+func checkSize(f string, l, h int) bool {
+	i := len(f)
+	if i < l || i > h {
+		return false
+	}
+	return true
 }
