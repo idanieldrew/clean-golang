@@ -2,6 +2,7 @@ package repository
 
 import (
 	"clean-golang/app/entities"
+	"clean-golang/app/infrastructure/helper"
 	"clean-golang/app/infrastructure/logger"
 	user_request "clean-golang/app/interfaces/request/user"
 	"context"
@@ -82,7 +83,7 @@ func (r *UserRepository) Register(req *user_request.Request) error {
 	}
 	defer stmt.Close()
 
-	_, execErr := stmt.Exec(req.Name, req.Phone, req.Email, req.Password, time.Now(), time.Now())
+	_, execErr := stmt.Exec(req.Name, req.Phone, req.Email, helper.MakeHash(req.Password), time.Now(), time.Now())
 	if execErr != nil {
 		logger.Error(execErr.Error())
 
