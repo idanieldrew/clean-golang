@@ -82,11 +82,9 @@ func (r *UserRepository) Register(req *user_request.Request) error {
 		return pErr
 	}
 	defer stmt.Close()
-
 	_, execErr := stmt.Exec(req.Name, req.Phone, req.Email, helper.MakeHash(req.Password), time.Now(), time.Now())
 	if execErr != nil {
 		logger.Error(execErr.Error())
-
 		return execErr
 	}
 
