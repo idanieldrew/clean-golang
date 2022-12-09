@@ -1,7 +1,8 @@
 package router
 
 import (
-	"clean-golang/app/infrastructure/router/user/v1"
+	"clean-golang/app/infrastructure/router/product"
+	"clean-golang/app/infrastructure/router/user"
 	"github.com/gorilla/mux"
 )
 
@@ -11,5 +12,8 @@ func Router() *mux.Router {
 
 	// register user route
 	user.Router(p)
+	// register product route
+	product.Router(p)
+
 	return r
 }

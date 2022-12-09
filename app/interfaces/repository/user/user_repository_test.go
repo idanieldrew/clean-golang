@@ -1,4 +1,4 @@
-package repository
+package user
 
 import (
 	user_request "clean-golang/app/interfaces/request/user"

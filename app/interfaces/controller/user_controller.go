@@ -4,8 +4,7 @@ import (
 	myMysql "clean-golang/app/infrastructure/database/mysql"
 	"clean-golang/app/infrastructure/database/redis"
 	"clean-golang/app/infrastructure/logger"
-	"clean-golang/app/infrastructure/response"
-	repo "clean-golang/app/interfaces/repository"
+	repo "clean-golang/app/interfaces/repository/user"
 	"clean-golang/app/interfaces/request/user"
 	"clean-golang/app/usecase/interactor"
 	"encoding/json"
@@ -17,11 +16,8 @@ type UserController struct {
 	Interact interactor.UserInteract
 }
 
-var (
-	rp response.ResponseS
-)
-
 func Repo() *repo.UserRepository {
+	// mongo repo
 	return &repo.UserRepository{
 		Connection: myMysql.Db,
 		Cache:      redis.Rdb,

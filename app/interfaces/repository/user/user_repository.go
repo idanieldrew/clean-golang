@@ -1,7 +1,7 @@
-package repository
+package user
 
 import (
-	"clean-golang/app/entities"
+	entity "clean-golang/app/entities"
 	"clean-golang/app/infrastructure/helper"
 	"clean-golang/app/infrastructure/logger"
 	user_request "clean-golang/app/interfaces/request/user"
@@ -33,9 +33,9 @@ func c(res *sql.Rows) {
 	}
 }
 
-func (r *UserRepository) All() (entities.Users, error) {
-	user := entities.User{}
-	users := entities.Users{}
+func (r *UserRepository) All() (entity.Users, error) {
+	user := entity.User{}
+	users := entity.Users{}
 	ctx := context.Background()
 
 	res, existErr := r.Cache.Get(ctx, "users").Result()
