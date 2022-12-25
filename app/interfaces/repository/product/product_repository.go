@@ -15,27 +15,23 @@ type ProductRepository struct {
 	Cache      *redis.Client
 }
 
-func (p *ProductRepository) Store(collection string, b []byte) {
-	var req any
-	switch collection {
-	case "refrigerator":
-		req = new(request.Refrigerator)
-		uErr := json.Unmarshal(b, req)
+func (p *ProductRepository) Store(b []byte) {
+	m := make(map[string]string)
+	uErr := json.Unmarshal(b, &m)
 
-		if uErr != nil {
-			logger.Error(uErr.Error())
-			return
-		}
-	case "vacuum":
-		req = new(request.VacuumCleaner)
-		uErr := json.Unmarshal(b, req)
-		if uErr != nil {
-			logger.Error(uErr.Error())
-			return
-		}
+	req := new(request.Product)
+	req.Name = m["name"]
+	req.Price = m["price"]
+	delete(m, "name")
+	delete(m, "price")
+	req.Fields = m
+
+	if uErr != nil {
+		logger.Error(uErr.Error())
+		return
 	}
 
-	insert, err := p.Connection.Collection(collection).InsertOne(context.TODO(), req)
+	insert, err := p.Connection.Collection("products").InsertOne(context.TODO(), req)
 	if err != nil {
 		logger.Error(err.Error())
 	}

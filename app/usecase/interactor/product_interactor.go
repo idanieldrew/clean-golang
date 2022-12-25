@@ -25,6 +25,6 @@ func getType(body []byte) string {
 }
 
 func (u ProductInteract) Store(b []byte) {
-	t := getType(b)
-	u.ProductRepository.Store(t, b)
+	//t := getType(b)
+	u.ProductRepository.Store(b)
 }

@@ -1,19 +1,9 @@
 package product
 
 type (
-	Refrigerator struct {
-		Name      string  `bson:"name"`
-		Price     float32 `bson:"price"`
-		Color     string  `bson:"color"`
-		CountDoor int     `bson:"count_door"`
-		Types     string  `bson:"types"`
-	}
-
-	VacuumCleaner struct {
-		Name    string  `bson:"name"`
-		Price   float32 `bson:"price"`
-		Color   string  `bson:"color"`
-		Suction int     `bson:"Suction"`
-		Types   string  `bson:"types"`
+	Product struct {
+		Name   string            `bson:"name" json:"name"`
+		Price  string            `bson:"price" json:"price"`
+		Fields map[string]string `bson:"fields" json:"fields"`
 	}
 )
