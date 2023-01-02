@@ -12,4 +12,6 @@ func Router(r *mux.Router) {
 
 	// store product
 	p.HandleFunc("", pc.Store).Methods("POST")
+	// find by slug
+	p.HandleFunc("/{slug}", pc.FindBySlug).Methods("GET")
 }

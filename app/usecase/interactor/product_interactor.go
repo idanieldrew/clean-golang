@@ -2,8 +2,7 @@ package interactor
 
 import (
 	"clean-golang/app/interfaces/repository/product"
-	"encoding/json"
-	"log"
+	"net/http"
 )
 
 type ProductInteract struct {
@@ -14,17 +13,18 @@ type Type struct {
 	Types string `json:"types"`
 }
 
-func getType(body []byte) string {
-	var t Type
-	err := json.Unmarshal(body, &t)
+func (u ProductInteract) Store(b []byte) (any, int) {
+	res, err := u.ProductRepository.Store(b)
 	if err != nil {
-		log.Fatalln(err)
+		return nil, http.StatusInternalServerError
 	}
-
-	return t.Types
+	return res, http.StatusOK
 }
 
-func (u ProductInteract) Store(b []byte) {
-	//t := getType(b)
-	u.ProductRepository.Store(b)
+func (p ProductInteract) FindBySlug(s string) (any, int) {
+	res, err := p.ProductRepository.FindBySlug(s)
+	if err != nil {
+		return nil, http.StatusNotFound
+	}
+	return res, http.StatusOK
 }
