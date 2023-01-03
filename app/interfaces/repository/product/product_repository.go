@@ -45,7 +45,7 @@ func (p *ProductRepository) Store(b []byte) (*mongo.InsertOneResult, error) {
 
 func (p *ProductRepository) FindBySlug(s string) (*request.Product, error) {
 	product := new(request.Product)
-	err := p.Connection.Collection("products").FindOne(context.TODO(), bson.D{{"sluggi", s}}).Decode(product)
+	err := p.Connection.Collection("products").FindOne(context.TODO(), bson.D{{"slug", s}}).Decode(product)
 
 	if err != nil {
 		text := fmt.Sprintf("%s not found", s)
@@ -54,4 +54,28 @@ func (p *ProductRepository) FindBySlug(s string) (*request.Product, error) {
 	}
 
 	return product, nil
+}
+
+func (p *ProductRepository) Update(s string, req []byte) error {
+	m := make(map[string]string)
+
+	uErr := json.Unmarshal(req, &m)
+	if uErr != nil {
+		logger.Error(uErr.Error())
+		return uErr
+	}
+
+	filter := bson.D{{"slug", s}}
+	update := bson.D{
+		{"$set", bson.D{
+			{"price", m["price"]},
+		}},
+	}
+
+	_, err := p.Connection.Collection("products").UpdateOne(context.TODO(), filter, update)
+	if err != nil {
+		logger.Error(err.Error())
+		return err
+	}
+	return nil
 }

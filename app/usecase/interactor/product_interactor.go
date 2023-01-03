@@ -28,3 +28,11 @@ func (p ProductInteract) FindBySlug(s string) (any, int) {
 	}
 	return res, http.StatusOK
 }
+
+func (p ProductInteract) Update(s string, body []byte) int {
+	err := p.ProductRepository.Update(s, body)
+	if err != nil {
+		return http.StatusInternalServerError
+	}
+	return http.StatusOK
+}

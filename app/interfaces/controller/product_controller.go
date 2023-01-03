@@ -39,3 +39,11 @@ func (p *ProductController) FindBySlug(w http.ResponseWriter, r *http.Request) {
 
 	rp.Res(w, status, res)
 }
+
+func (p *ProductController) Update(w http.ResponseWriter, r *http.Request) {
+	q := mux.Vars(r)
+	body, _ := io.ReadAll(r.Body)
+	status := p.ProductInteract.Update(q["slug"], body)
+
+	rp.Res(w, status, "successfully update")
+}
