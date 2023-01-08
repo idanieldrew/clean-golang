@@ -43,7 +43,14 @@ func (p *ProductController) FindBySlug(w http.ResponseWriter, r *http.Request) {
 func (p *ProductController) Update(w http.ResponseWriter, r *http.Request) {
 	q := mux.Vars(r)
 	body, _ := io.ReadAll(r.Body)
-	status := p.ProductInteract.Update(q["slug"], body)
+	status, msg := p.ProductInteract.Update(q["slug"], body)
 
-	rp.Res(w, status, "successfully update")
+	rp.Res(w, status, msg)
+}
+
+func (p *ProductController) Destroy(w http.ResponseWriter, r *http.Request) {
+	s := mux.Vars(r)
+	status, msg := p.ProductInteract.DestroyBySlug(s["slug"])
+
+	rp.Res(w, status, msg)
 }

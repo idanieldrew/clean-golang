@@ -79,3 +79,15 @@ func (p *ProductRepository) Update(s string, req []byte) error {
 	}
 	return nil
 }
+
+func (p *ProductRepository) Destroy(s string) error {
+	_, err := p.Connection.Collection("products").DeleteOne(context.TODO(), bson.D{{
+		"slug", s,
+	}})
+	if err != nil {
+		logger.Error(err.Error())
+		return err
+	}
+
+	return nil
+}
