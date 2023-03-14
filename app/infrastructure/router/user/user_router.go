@@ -12,5 +12,6 @@ func Router(r *mux.Router) {
 
 	// all users
 	u.HandleFunc("", uc.Index).Methods("GET")
+
 	u.HandleFunc("/register", uc.Register).Methods("POST")
 }

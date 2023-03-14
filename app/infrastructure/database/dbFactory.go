@@ -2,7 +2,7 @@ package database
 
 import (
 	"clean-golang/app/infrastructure/database/contracts/database"
-	"clean-golang/app/infrastructure/database/mongo"
+	"clean-golang/app/infrastructure/database/mysql"
 	"clean-golang/app/infrastructure/database/redis"
 	"clean-golang/app/infrastructure/logger"
 	"fmt"
@@ -12,7 +12,7 @@ func NewDb() error {
 	/* factory method pattern */
 
 	// database.Connection[]{mysql.NewMysql(),mongo.NewMongo(),pgsql}
-	err := database.Make(mongo.NewMongo())
+	err := database.Make(mysql.NewMysql())
 	if err != nil {
 		return err
 	}

@@ -5,7 +5,10 @@ import (
 	user_request "clean-golang/app/interfaces/request/user"
 	"clean-golang/app/usecase/dto/user"
 	"clean-golang/app/usecase/repository"
+	"fmt"
 	"net/http"
+	"net/smtp"
+	"os"
 )
 
 type UserInteract struct {
@@ -40,6 +43,25 @@ func (u *UserInteract) Register(req *user_request.Request) (int, string) {
 	if err != nil {
 		return http.StatusInternalServerError, "server problem"
 	}
+	go sendmail([]string{req.Email})
 
 	return http.StatusCreated, "success"
+}
+
+func sendmail(to []string) {
+	username := os.Getenv("MAIL_USERNAME")
+	password := os.Getenv("MAIL_PASSWORD")
+	host := os.Getenv("MAIL_HOST")
+	from := "cleangolang@gmail.com"
+	message := []byte(fmt.Sprintf(`To: %s 
+
+From: %s 
+
+Subject: %s`,
+		to[0], "cleangolang.gmail.com", "Why aren’t you using Mailtrap yet?\n\n\t\tHere’s the space for your great sales pitch"))
+	auth := smtp.PlainAuth("", username, password, host)
+	err := smtp.SendMail(host+":25", auth, from, to, message)
+	if err != nil {
+		logger.Error(err.Error())
+	}
 }
