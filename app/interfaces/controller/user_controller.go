@@ -7,13 +7,14 @@ import (
 	repo "clean-golang/app/interfaces/repository/user"
 	"clean-golang/app/interfaces/request/user"
 	"clean-golang/app/usecase/interactor"
+	user2 "clean-golang/app/usecase/interactor/user"
 	"encoding/json"
 	"io"
 	"net/http"
 )
 
 type UserController struct {
-	Interact interactor.UserInteract
+	Interact user2.Interact
 }
 
 func Repo() *repo.UserRepository {
@@ -26,7 +27,7 @@ func Repo() *repo.UserRepository {
 
 func New() *UserController {
 	return &UserController{
-		Interact: interactor.UserInteract{
+		Interact: &interactor.UserInteract{
 			UserRepository: Repo(),
 		},
 	}
@@ -34,7 +35,6 @@ func New() *UserController {
 
 func (u *UserController) Index(w http.ResponseWriter, r *http.Request) {
 	res, status := u.Interact.Index()
-
 	rp.Res(w, status, res)
 }
 

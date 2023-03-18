@@ -5,10 +5,11 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="8692c2ca-8268-482c-baec-9ba90f575f8d" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/app/cmd/serve.go" beforeDir="false" afterPath="$PROJECT_DIR$/app/cmd/serve.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/infrastructure/database/dbFactory.go" beforeDir="false" afterPath="$PROJECT_DIR$/app/infrastructure/database/dbFactory.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/infrastructure/router/user/user_router.go" beforeDir="false" afterPath="$PROJECT_DIR$/app/infrastructure/router/user/user_router.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/usecase/interactor/user_interactor.go" beforeDir="false" afterPath="$PROJECT_DIR$/app/usecase/interactor/user_interactor.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/interfaces/controller/user_controller.go" beforeDir="false" afterPath="$PROJECT_DIR$/app/interfaces/controller/user_controller.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/usecase/interactor/user_interactor.go" beforeDir="false" afterPath="$PROJECT_DIR$/app/usecase/interactor/interact.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/go.mod" beforeDir="false" afterPath="$PROJECT_DIR$/go.mod" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/go.sum" beforeDir="false" afterPath="$PROJECT_DIR$/go.sum" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -65,14 +66,14 @@
       <recent name="$PROJECT_DIR$/app/usecase/dto/mongo" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/app/usecase/interactor" />
+      <recent name="$PROJECT_DIR$/app/usecase/interactor/user" />
       <recent name="$PROJECT_DIR$/app/interfaces/repository/product" />
       <recent name="$PROJECT_DIR$/app/infrastructure/router/user" />
       <recent name="$PROJECT_DIR$/app/interfaces/repository/user" />
-      <recent name="$PROJECT_DIR$/app/usecase/dto/user" />
-      <recent name="$PROJECT_DIR$/app/entities" />
     </key>
   </component>
-  <component name="RunManager" selected="Go Test.go test clean-golang/app/interfaces/repository/mysql">
+  <component name="RunManager" selected="Go Test.TestUserController_Index in clean-golang/app/interfaces/controller/controller_test">
     <configuration name="TestAllUsers in clean-golang/app/interfaces/repository" type="GoTestRunConfiguration" factoryName="Go Test" temporary="true" nameIsGenerated="true">
       <module name="clean-golang" />
       <working_directory value="$PROJECT_DIR$/app/interfaces/repository" />
@@ -97,6 +98,18 @@
       <pattern value="^\QTestRegister\E$" />
       <method v="2" />
     </configuration>
+    <configuration name="TestUserController_Index in clean-golang/app/interfaces/controller/controller_test" type="GoTestRunConfiguration" factoryName="Go Test" temporary="true" nameIsGenerated="true">
+      <module name="clean-golang" />
+      <working_directory value="$PROJECT_DIR$/app/interfaces/controller/controller_test" />
+      <root_directory value="$PROJECT_DIR$" />
+      <kind value="PACKAGE" />
+      <package value="clean-golang/app/interfaces/controller/controller_test" />
+      <directory value="$PROJECT_DIR$" />
+      <filePath value="$PROJECT_DIR$" />
+      <framework value="gotest" />
+      <pattern value="^\QTestUserController_Index\E$" />
+      <method v="2" />
+    </configuration>
     <configuration name="go test clean-golang/app/interfaces/repository/mysql" type="GoTestRunConfiguration" factoryName="Go Test" temporary="true" nameIsGenerated="true">
       <module name="clean-golang" />
       <working_directory value="$PROJECT_DIR$/app/interfaces/repository/mysql" />
@@ -110,6 +123,7 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Go Test.TestUserController_Index in clean-golang/app/interfaces/controller/controller_test" />
         <item itemvalue="Go Test.go test clean-golang/app/interfaces/repository/mysql" />
         <item itemvalue="Go Test.TestRegister in clean-golang/app/interfaces/repository" />
         <item itemvalue="Go Test.TestAllUsers in clean-golang/app/interfaces/repository" />
