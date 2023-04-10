@@ -10,7 +10,7 @@ import (
 	"time"
 )
 
-func TestUserController_Index(t *testing.T) {
+func TestCorrectIndex(t *testing.T) {
 	var mockInteract = &mock.InteractMock{}
 	userController := controller.UserController{Interact: mockInteract}
 	w := httptest.NewRecorder()
@@ -32,6 +32,23 @@ func TestUserController_Index(t *testing.T) {
 		},
 	}
 	status := 200
+	mockInteract.On("Index").Return(res, status)
+	userController.Index(w, r)
+
+	if w.Code != status {
+		t.Errorf("Unexpected response status code: got %v, want %v", w.Code, status)
+	}
+}
+
+func TestProblemIndex(t *testing.T) {
+	var mockInteract = &mock.InteractMock{}
+	userController := controller.UserController{Interact: mockInteract}
+	w := httptest.NewRecorder()
+	r := httptest.NewRequest("GET", "/api/v1/users", nil)
+	res := []user.PublicResponse{
+		{},
+	}
+	status := 500
 	mockInteract.On("Index").Return(res, status)
 	userController.Index(w, r)
 

@@ -6,15 +6,14 @@ import (
 	"clean-golang/app/infrastructure/logger"
 	repo "clean-golang/app/interfaces/repository/user"
 	"clean-golang/app/interfaces/request/user"
-	"clean-golang/app/usecase/interactor"
-	user2 "clean-golang/app/usecase/interactor/user"
+	Interact "clean-golang/app/usecase/interactor/user"
 	"encoding/json"
 	"io"
 	"net/http"
 )
 
 type UserController struct {
-	Interact user2.Interact
+	Interact Interact.Interact
 }
 
 func Repo() *repo.UserRepository {
@@ -27,7 +26,7 @@ func Repo() *repo.UserRepository {
 
 func New() *UserController {
 	return &UserController{
-		Interact: &interactor.UserInteract{
+		Interact: &Interact.UserInteract{
 			UserRepository: Repo(),
 		},
 	}

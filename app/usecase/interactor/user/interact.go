@@ -1,10 +1,10 @@
-package interactor
+package user
 
 import (
 	"clean-golang/app/infrastructure/logger"
 	user_request "clean-golang/app/interfaces/request/user"
 	"clean-golang/app/usecase/dto/user"
-	"clean-golang/app/usecase/repository"
+	user2 "clean-golang/app/usecase/repository/user"
 	"fmt"
 	"net/http"
 	"net/smtp"
@@ -12,7 +12,7 @@ import (
 )
 
 type UserInteract struct {
-	UserRepository repository.UserRepository
+	UserRepository user2.UserRepository
 }
 
 func (u *UserInteract) Index() ([]user.PublicResponse, int) {
@@ -43,12 +43,12 @@ func (u *UserInteract) Register(req *user_request.Request) (int, string) {
 	if err != nil {
 		return http.StatusInternalServerError, "server problem"
 	}
-	go sendmail([]string{req.Email})
+	go sendMail([]string{req.Email})
 
 	return http.StatusCreated, "success"
 }
 
-func sendmail(to []string) {
+func sendMail(to []string) {
 	username := os.Getenv("MAIL_USERNAME")
 	password := os.Getenv("MAIL_PASSWORD")
 	host := os.Getenv("MAIL_HOST")

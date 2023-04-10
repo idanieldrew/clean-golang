@@ -1,4 +1,4 @@
-package repository
+package user
 
 import (
 	"clean-golang/app/entities"

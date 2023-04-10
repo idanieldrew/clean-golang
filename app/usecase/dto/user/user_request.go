@@ -1,7 +1,7 @@
 package user
 
 import (
-	"clean-golang/app/usecase/repository"
+	"clean-golang/app/usecase/repository/user"
 )
 
 type Request struct {
@@ -9,7 +9,7 @@ type Request struct {
 	Phone string `json:"phone"`
 }
 
-func (u *Request) Validation(r repository.UserRepository) bool {
+func (u *Request) Validation(r user.UserRepository) bool {
 	m := r.CountMail(u.Email)
 	p := r.CountPhone(u.Phone)
 	if (m == 0) && (p == 0) {
