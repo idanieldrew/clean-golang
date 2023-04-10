@@ -6,12 +6,13 @@
   <component name="ChangeListManager">
     <list default="true" id="8692c2ca-8268-482c-baec-9ba90f575f8d" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/interfaces/controller/controller_test/user_controller_test.go" beforeDir="false" afterPath="$PROJECT_DIR$/app/interfaces/controller/controller_test/user_controller_test.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/interfaces/controller/user_controller.go" beforeDir="false" afterPath="$PROJECT_DIR$/app/interfaces/controller/user_controller.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/usecase/dto/user/user_request.go" beforeDir="false" afterPath="$PROJECT_DIR$/app/usecase/dto/user/user_request.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/usecase/interactor/interact.go" beforeDir="false" afterPath="$PROJECT_DIR$/app/usecase/interactor/user/interact.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/usecase/interactor/user/user_interactor_interface.go" beforeDir="false" afterPath="$PROJECT_DIR$/app/usecase/interactor/user/interactor_interface.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/usecase/repository/user_repository.go" beforeDir="false" afterPath="$PROJECT_DIR$/app/usecase/repository/user/repository.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/infrastructure/router/product/product_route.go" beforeDir="false" afterPath="$PROJECT_DIR$/app/infrastructure/router/product/product_route.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/infrastructure/router/user/user_router.go" beforeDir="false" afterPath="$PROJECT_DIR$/app/infrastructure/router/user/user_router.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/interfaces/controller/controller.go" beforeDir="false" afterPath="$PROJECT_DIR$/app/interfaces/controller/controller.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/interfaces/controller/controller_test/user_controller_test.go" beforeDir="false" afterPath="$PROJECT_DIR$/app/interfaces/controller/user/user_controller_test.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/interfaces/controller/product_controller.go" beforeDir="false" afterPath="$PROJECT_DIR$/app/interfaces/controller/product/product_controller.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/interfaces/controller/user_controller.go" beforeDir="false" afterPath="$PROJECT_DIR$/app/interfaces/controller/user/user_controller.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/usecase/interactor/mock/interact.go" beforeDir="false" afterPath="$PROJECT_DIR$/app/usecase/interactor/user/interactMock.go" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -68,11 +69,11 @@
       <recent name="$PROJECT_DIR$/app/usecase/dto/mongo" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/app/usecase/interactor/user" />
+      <recent name="$PROJECT_DIR$/app/interfaces/controller/product" />
+      <recent name="$PROJECT_DIR$/app/interfaces/controller/user" />
       <recent name="$PROJECT_DIR$/app/usecase/repository/user" />
       <recent name="$PROJECT_DIR$/app/usecase/repository" />
-      <recent name="$PROJECT_DIR$/app/usecase/interactor/user" />
-      <recent name="$PROJECT_DIR$/app/usecase/interactor" />
-      <recent name="$PROJECT_DIR$/app/interfaces/repository/product" />
     </key>
   </component>
   <component name="RunManager" selected="Go Test.TestExistProblemInRepoLayer in clean-golang/app/usecase/interactor/user">

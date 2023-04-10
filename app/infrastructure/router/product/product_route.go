@@ -1,14 +1,14 @@
 package product
 
 import (
-	"clean-golang/app/interfaces/controller"
+	"clean-golang/app/interfaces/controller/product"
 	"github.com/gorilla/mux"
 )
 
 func Router(r *mux.Router) {
 	p := r.PathPrefix("/v1/products").Subrouter()
 
-	pc := controller.NewProduct()
+	pc := product.NewProduct()
 
 	// store product
 	p.HandleFunc("", pc.Store).Methods("POST")

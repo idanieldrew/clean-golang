@@ -1,18 +1,21 @@
-package controller_test
+package user
 
 import (
 	_ "bytes"
-	"clean-golang/app/interfaces/controller"
 	"clean-golang/app/usecase/dto/user"
-	"clean-golang/app/usecase/interactor/mock"
+	interact "clean-golang/app/usecase/interactor/user"
 	"net/http/httptest"
 	"testing"
 	"time"
 )
 
-func TestCorrectIndex(t *testing.T) {
-	var mockInteract = &mock.InteractMock{}
-	userController := controller.UserController{Interact: mockInteract}
+func TestIndex(t *testing.T) {
+	var mockInteract = &interact.InteractMock{}
+
+	userController := UserController{
+		Interact: mockInteract,
+	}
+
 	w := httptest.NewRecorder()
 	r := httptest.NewRequest("GET", "/api/v1/users", nil)
 	res := []user.PublicResponse{
@@ -31,6 +34,7 @@ func TestCorrectIndex(t *testing.T) {
 			UpdatedAt: time.Now(),
 		},
 	}
+	
 	status := 200
 	mockInteract.On("Index").Return(res, status)
 	userController.Index(w, r)
@@ -41,8 +45,8 @@ func TestCorrectIndex(t *testing.T) {
 }
 
 func TestProblemIndex(t *testing.T) {
-	var mockInteract = &mock.InteractMock{}
-	userController := controller.UserController{Interact: mockInteract}
+	var mockInteract = &interact.InteractMock{}
+	userController := UserController{Interact: mockInteract}
 	w := httptest.NewRecorder()
 	r := httptest.NewRequest("GET", "/api/v1/users", nil)
 	res := []user.PublicResponse{

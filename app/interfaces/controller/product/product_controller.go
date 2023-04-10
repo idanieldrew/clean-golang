@@ -1,8 +1,9 @@
-package controller
+package product
 
 import (
 	"clean-golang/app/infrastructure/database/mongo"
 	"clean-golang/app/infrastructure/database/redis"
+	"clean-golang/app/interfaces/controller"
 	"clean-golang/app/interfaces/repository/product"
 	"clean-golang/app/usecase/interactor"
 	"github.com/gorilla/mux"
@@ -29,7 +30,7 @@ func (p *ProductController) Store(w http.ResponseWriter, r *http.Request) {
 
 	res, status := p.ProductInteract.Store(body)
 
-	rp.Res(w, status, res)
+	controller.Res.Res(w, status, res)
 }
 
 func (p *ProductController) FindBySlug(w http.ResponseWriter, r *http.Request) {
@@ -37,7 +38,7 @@ func (p *ProductController) FindBySlug(w http.ResponseWriter, r *http.Request) {
 
 	res, status := p.ProductInteract.FindBySlug(q["slug"])
 
-	rp.Res(w, status, res)
+	controller.Res.Res(w, status, res)
 }
 
 func (p *ProductController) Update(w http.ResponseWriter, r *http.Request) {
@@ -45,12 +46,12 @@ func (p *ProductController) Update(w http.ResponseWriter, r *http.Request) {
 	body, _ := io.ReadAll(r.Body)
 	status, msg := p.ProductInteract.Update(q["slug"], body)
 
-	rp.Res(w, status, msg)
+	controller.Res.Res(w, status, msg)
 }
 
 func (p *ProductController) Destroy(w http.ResponseWriter, r *http.Request) {
 	s := mux.Vars(r)
 	status, msg := p.ProductInteract.DestroyBySlug(s["slug"])
 
-	rp.Res(w, status, msg)
+	controller.Res.Res(w, status, msg)
 }

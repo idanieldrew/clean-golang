@@ -1,9 +1,10 @@
-package controller
+package user
 
 import (
 	myMysql "clean-golang/app/infrastructure/database/mysql"
 	"clean-golang/app/infrastructure/database/redis"
 	"clean-golang/app/infrastructure/logger"
+	"clean-golang/app/interfaces/controller"
 	repo "clean-golang/app/interfaces/repository/user"
 	"clean-golang/app/interfaces/request/user"
 	Interact "clean-golang/app/usecase/interactor/user"
@@ -34,7 +35,7 @@ func New() *UserController {
 
 func (u *UserController) Index(w http.ResponseWriter, r *http.Request) {
 	res, status := u.Interact.Index()
-	rp.Res(w, status, res)
+	controller.Res.Res(w, status, res)
 }
 
 func (u *UserController) Register(w http.ResponseWriter, r *http.Request) {
@@ -44,7 +45,7 @@ func (u *UserController) Register(w http.ResponseWriter, r *http.Request) {
 	err := json.Unmarshal(body, req)
 	if err != nil {
 		logger.Error(err.Error())
-		rp.Res(w, http.StatusInternalServerError, nil)
+		controller.Res.Res(w, http.StatusInternalServerError, nil)
 		return
 	}
 
@@ -52,10 +53,10 @@ func (u *UserController) Register(w http.ResponseWriter, r *http.Request) {
 
 	if validationErr != nil {
 		logger.Error(validationErr.Error())
-		rp.Res(w, http.StatusUnprocessableEntity, validationErr.Error())
+		controller.Res.Res(w, http.StatusUnprocessableEntity, validationErr.Error())
 		return
 	}
 	status, msg := u.Interact.Register(req)
 
-	rp.Res(w, status, msg)
+	controller.Res.Res(w, status, msg)
 }
