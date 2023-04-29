@@ -1,7 +1,7 @@
 package user
 
 import (
-	_ "bytes"
+	"clean-golang/app/infrastructure/response"
 	"clean-golang/app/usecase/dto/user"
 	interact "clean-golang/app/usecase/interactor/user"
 	"net/http/httptest"
@@ -34,8 +34,8 @@ func TestIndex(t *testing.T) {
 			UpdatedAt: time.Now(),
 		},
 	}
-	
-	status := 200
+
+	status := response.OK
 	mockInteract.On("Index").Return(res, status)
 	userController.Index(w, r)
 
@@ -52,7 +52,7 @@ func TestProblemIndex(t *testing.T) {
 	res := []user.PublicResponse{
 		{},
 	}
-	status := 500
+	status := response.SERVERERROR
 	mockInteract.On("Index").Return(res, status)
 	userController.Index(w, r)
 

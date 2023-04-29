@@ -18,7 +18,6 @@ type UserController struct {
 }
 
 func Repo() *repo.UserRepository {
-	// mongo repo
 	return &repo.UserRepository{
 		Connection: myMysql.Db,
 		Cache:      redis.Rdb,

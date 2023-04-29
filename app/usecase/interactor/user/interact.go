@@ -2,9 +2,10 @@ package user
 
 import (
 	"clean-golang/app/infrastructure/logger"
+	"clean-golang/app/infrastructure/response"
 	user_request "clean-golang/app/interfaces/request/user"
 	"clean-golang/app/usecase/dto/user"
-	user2 "clean-golang/app/usecase/repository/user"
+	repo "clean-golang/app/usecase/repository/user"
 	"fmt"
 	"net/http"
 	"net/smtp"
@@ -12,7 +13,7 @@ import (
 )
 
 type UserInteract struct {
-	UserRepository user2.UserRepository
+	UserRepository repo.UserRepository
 }
 
 func (u *UserInteract) Index() ([]user.PublicResponse, int) {
@@ -20,12 +21,12 @@ func (u *UserInteract) Index() ([]user.PublicResponse, int) {
 	users, err := u.UserRepository.All()
 	if err != nil {
 		logger.Error("problem")
-		return nil, http.StatusInternalServerError
+		return nil, response.SERVERERROR
 	}
 
 	r := user.UserResponse{}
 	res := r.Public(users)
-	return res, http.StatusOK
+	return res, response.OK
 }
 
 func (u *UserInteract) Register(req *user_request.Request) (int, string) {
@@ -35,7 +36,7 @@ func (u *UserInteract) Register(req *user_request.Request) (int, string) {
 		Phone: req.Phone,
 	}
 	if req := request.Validation(u.UserRepository); !req {
-		return http.StatusUnprocessableEntity, "incorrect mail or phone"
+		return response.UNPROCESSABLE, "incorrect mail or phone"
 	}
 
 	// register user
@@ -45,7 +46,7 @@ func (u *UserInteract) Register(req *user_request.Request) (int, string) {
 	}
 	go sendMail([]string{req.Email})
 
-	return http.StatusCreated, "success"
+	return response.CREATED, "success"
 }
 
 func sendMail(to []string) {
